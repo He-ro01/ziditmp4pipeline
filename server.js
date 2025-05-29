@@ -39,9 +39,10 @@ mongoose.connect(process.env.MONGO_URI, {
   });
 //
 // Wake function
-app.get('/wake', (req, res) => {
-  res.send('✅ Wake-up successful at ' + new Date().toISOString());
+app.get('/', (req, res) => {
+  res.send('✅ Cache server is alive at ' + new Date().toISOString());
 });
+
 
 // Optional: Self-ping every 5 minutes to keep Render.com backend awake
 if (process.env.SELF_URL) {
