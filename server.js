@@ -50,5 +50,5 @@ if (process.env.SELF_URL) {
       .then(res => res.text())
       .then(data => console.log(`🔁 Self-ping success: ${data}`))
       .catch(err => console.error('❌ Self-ping failed:', err));
-  }, 1000 * 60 * 5); // every 5 minutes
+  }, 1000 * 60 * 4); // every 5 minutes
 }
