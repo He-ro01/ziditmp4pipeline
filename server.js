@@ -3,7 +3,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const cors = require('cors');
-const fetch = require('node-fetch'); // ✅ Required for self-ping
 
 const cacheRoutes = require('./routes/cache');
 
@@ -32,16 +31,3 @@ mongoose.connect(process.env.MONGO_URI, {
       console.log('✅ Cache server running on http://localhost:3000');
     });
   })
-  .catch(err => {
-    console.error('❌ MongoDB Connection Error:', err);
-  });
-
-// ✅ Optional: Self-ping every 4 minutes to keep server awake on Render free tier
-if (process.env.SELF_URL) {
-  setInterval(() => {
-    fetch(`${process.env.SELF_URL}/`)
-      .then(res => res.text())
-      .then(data => console.log(`🔁 Self-ping success: ${data}`))
-      .catch(err => console.error('❌ Self-ping failed:', err));
-  }, 1000 * 60 * 4); // every 4 minutes
-}
