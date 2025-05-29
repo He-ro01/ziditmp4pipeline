@@ -37,3 +37,18 @@ mongoose.connect(process.env.MONGO_URI, {
   .catch(err => {
     console.error('❌ MongoDB Connection Error:', err);
   });
+//
+// Wake function
+app.get('/wake', (req, res) => {
+  res.send('✅ Wake-up successful at ' + new Date().toISOString());
+});
+
+// Optional: Self-ping every 5 minutes to keep Render.com backend awake
+if (process.env.SELF_URL) {
+  setInterval(() => {
+    fetch(`${process.env.SELF_URL}/wake`)
+      .then(res => res.text())
+      .then(data => console.log(`🔁 Self-ping success: ${data}`))
+      .catch(err => console.error('❌ Self-ping failed:', err));
+  }, 1000 * 60 * 5); // every 5 minutes
+}
